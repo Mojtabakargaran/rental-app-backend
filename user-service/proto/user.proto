@@ -1,0 +1,437 @@
+syntax = "proto3";
+
+package user;
+
+service UserService {
+  rpc CheckEmailExists (CheckEmailExistsRequest) returns (CheckEmailExistsResponse);
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+  rpc AssignRole (AssignRoleRequest) returns (AssignRoleResponse);
+  rpc FindByEmail (FindByEmailRequest) returns (FindByEmailResponse);
+  rpc FindById (FindByIdRequest) returns (FindByIdResponse);
+  rpc ActivateUser (ActivateUserRequest) returns (ActivateUserResponse);
+  rpc UpdatePassword (UpdatePasswordRequest) returns (UpdatePasswordResponse);
+  rpc GetUserProfile (GetUserProfileRequest) returns (GetUserProfileResponse);
+  rpc GetOwnerByTenant (GetOwnerByTenantRequest) returns (GetOwnerByTenantResponse);
+  rpc UpdateLanguagePreference (UpdateLanguagePreferenceRequest) returns (UpdateLanguagePreferenceResponse);
+  rpc GetRoles (GetRolesRequest) returns (GetRolesResponse);
+  rpc CreateUserByOwner (CreateUserByOwnerRequest) returns (CreateUserByOwnerResponse);
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+  rpc GetUserDetails (GetUserDetailsRequest) returns (GetUserDetailsResponse);
+  rpc UpdateUserRole (UpdateUserRoleRequest) returns (UpdateUserRoleResponse);
+  rpc UpdateUserProfile (UpdateUserProfileRequest) returns (UpdateUserProfileResponse);
+  rpc DeactivateUser (DeactivateUserRequest) returns (DeactivateUserResponse);
+  rpc ReactivateUser (ReactivateUserRequest) returns (ReactivateUserResponse);
+  rpc GetUserNames (GetUserNamesRequest) returns (GetUserNamesResponse);
+}
+
+message CheckEmailExistsRequest {
+  string email = 1;
+  string correlationId = 2;
+}
+
+message CheckEmailExistsResponse {
+  bool success = 1;
+  bool exists = 2;
+  string error = 3;
+  string code = 4;
+}
+
+message CreateUserRequest {
+  string fullName = 1;
+  string email = 2;
+  string passwordHash = 3;
+  string phoneNumber = 4;
+  string tenantId = 5;
+  string languagePreference = 6;
+  string correlationId = 7;
+}
+
+message CreateUserResponse {
+  bool success = 1;
+  string userId = 2;
+  string email = 3;
+  string fullName = 4;
+  string error = 5;
+  string code = 6;
+}
+
+message AssignRoleRequest {
+  string userId = 1;
+  string roleCode = 2;
+  string tenantId = 3;
+  string correlationId = 4;
+}
+
+message AssignRoleResponse {
+  bool success = 1;
+  string userId = 2;
+  string roleCode = 3;
+  string error = 4;
+  string code = 5;
+}
+
+message FindByEmailRequest {
+  string email = 1;
+  string correlationId = 2;
+}
+
+message UserData {
+  string userId = 1;
+  string email = 2;
+  bool isActive = 3;
+  string languagePreference = 4;
+  string fullName = 5;
+  string tenantId = 6;
+  string emailVerifiedAt = 7;
+  string passwordHash = 8;
+  string passwordChangedAt = 9;
+  string deactivatedAt = 10;
+}
+
+message FindByEmailResponse {
+  bool success = 1;
+  UserData user = 2;
+  string error = 3;
+  string code = 4;
+}
+
+message FindByIdRequest {
+  string userId = 1;
+  string correlationId = 2;
+}
+
+message FindByIdResponse {
+  bool success = 1;
+  UserData user = 2;
+  string error = 3;
+  string code = 4;
+}
+
+message ActivateUserRequest {
+  string userId = 1;
+  string emailVerifiedAt = 2;
+  string correlationId = 3;
+}
+
+message ActivateUserResponse {
+  bool success = 1;
+  string userId = 2;
+  string email = 3;
+  bool isActive = 4;
+  string emailVerifiedAt = 5;
+  string error = 6;
+  string code = 7;
+}
+
+message UpdatePasswordRequest {
+  string userId = 1;
+  string newPasswordHash = 2;
+  string passwordChangedAt = 3;
+  string correlationId = 4;
+}
+
+message UpdatePasswordResponse {
+  bool success = 1;
+  string userId = 2;
+  string passwordChangedAt = 3;
+  string error = 4;
+  string code = 5;
+}
+
+message GetUserProfileRequest {
+  string userId = 1;
+  string correlationId = 2;
+}
+
+message UserRole {
+  string code = 1;
+  string name = 2;
+}
+
+message UserProfile {
+  string id = 1;
+  string tenantId = 2;
+  string fullName = 3;
+  string email = 4;
+  string phoneNumber = 5;
+  string languagePreference = 6;
+  bool isActive = 7;
+  UserRole role = 8;
+}
+
+message GetUserProfileResponse {
+  bool success = 1;
+  UserProfile user = 2;
+  string error = 3;
+  string code = 4;
+}
+
+message GetOwnerByTenantRequest {
+  string tenantId = 1;
+  string correlationId = 2;
+}
+
+message GetOwnerByTenantResponse {
+  bool success = 1;
+  UserProfile user = 2;
+  string error = 3;
+  string code = 4;
+}
+
+message UpdateLanguagePreferenceRequest {
+  string userId = 1;
+  string tenantId = 2;
+  string languagePreference = 3;
+  string correlationId = 4;
+}
+
+message UpdatedUser {
+  string userId = 1;
+  string languagePreference = 2;
+  string updatedAt = 3;
+}
+
+message UpdateLanguagePreferenceResponse {
+  bool success = 1;
+  UpdatedUser user = 2;
+  string error = 3;
+  string code = 4;
+}
+
+message GetRolesRequest {
+  string correlationId = 1;
+}
+
+message RoleInfo {
+  string id = 1;
+  string code = 2;
+  string name = 3;
+  string description = 4;
+}
+
+message GetRolesResponse {
+  bool success = 1;
+  repeated RoleInfo roles = 2;
+  string error = 3;
+  string code = 4;
+}
+
+message CreateUserByOwnerRequest {
+  string fullName = 1;
+  string email = 2;
+  string phoneNumber = 3;
+  string roleCode = 4;
+  string tenantId = 5;
+  string createdBy = 6;
+  string createdByLanguage = 7;
+  string ipAddress = 8;
+  string userAgent = 9;
+  string correlationId = 10;
+}
+
+message CreatedUserInfo {
+  string userId = 1;
+  string email = 2;
+  string fullName = 3;
+  string roleCode = 4;
+  string tenantId = 5;
+}
+
+message CreateUserByOwnerResponse {
+  bool success = 1;
+  CreatedUserInfo user = 2;
+  string error = 3;
+  string code = 4;
+}
+
+message ListUsersRequest {
+  string tenantId = 1;
+  int32 page = 2;
+  int32 limit = 3;
+  string search = 4;
+  string status = 5;
+  string roleCode = 6;
+  string correlationId = 7;
+}
+
+message ListedUser {
+  string id = 1;
+  string fullName = 2;
+  string email = 3;
+  string phoneNumber = 4;
+  UserRole role = 5;
+  bool isActive = 6;
+  string emailVerifiedAt = 7;
+  string createdAt = 8;
+}
+
+message Pagination {
+  int32 total = 1;
+  int32 page = 2;
+  int32 limit = 3;
+  int32 totalPages = 4;
+  bool hasNext = 5;
+  bool hasPrev = 6;
+}
+
+message ListUsersResponse {
+  bool success = 1;
+  repeated ListedUser users = 2;
+  Pagination pagination = 3;
+  string error = 4;
+  string code = 5;
+}
+
+message GetUserDetailsRequest {
+  string userId = 1;
+  string tenantId = 2;
+  string correlationId = 3;
+}
+
+message UserRoleDetail {
+  string code = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message UserDetails {
+  string id = 1;
+  string fullName = 2;
+  string email = 3;
+  string phoneNumber = 4;
+  string languagePreference = 5;
+  UserRoleDetail role = 6;
+  bool isActive = 7;
+  string emailVerifiedAt = 8;
+  string passwordChangedAt = 9;
+  string createdAt = 10;
+  string updatedAt = 11;
+}
+
+message GetUserDetailsResponse {
+  bool success = 1;
+  UserDetails user = 2;
+  string error = 3;
+  string code = 4;
+}
+
+message UpdateUserRoleRequest {
+  string userId = 1;
+  string newRoleCode = 2;
+  string actorId = 3;
+  string tenantId = 4;
+  string ipAddress = 5;
+  string userAgent = 6;
+  string correlationId = 7;
+}
+
+message UpdateUserRoleResponse {
+  bool success = 1;
+  string userId = 2;
+  string fullName = 3;
+  string email = 4;
+  RoleInfo oldRole = 5;
+  RoleInfo newRole = 6;
+  string updatedAt = 7;
+  string error = 8;
+  string code = 9;
+  int32 retryAfter = 10;
+}
+
+message UpdateUserProfileRequest {
+  string userId = 1;
+  string tenantId = 2;
+  string fullName = 3;
+  string email = 4;
+  string phoneNumber = 5;
+  string actorId = 6;
+  string ipAddress = 7;
+  string userAgent = 8;
+  string correlationId = 9;
+}
+
+message OldNewValues {
+  string fullName = 1;
+  string email = 2;
+  string phoneNumber = 3;
+}
+
+message UpdateUserProfileResponse {
+  bool success = 1;
+  string userId = 2;
+  string fullName = 3;
+  string email = 4;
+  string phoneNumber = 5;
+  string languagePreference = 6;
+  repeated string changedFields = 7;
+  OldNewValues oldValues = 8;
+  OldNewValues newValues = 9;
+  bool emailChanged = 10;
+  string updatedAt = 11;
+  string error = 12;
+  string code = 13;
+}
+
+message DeactivateUserRequest {
+  string userId = 1;
+  string actorId = 2;
+  string tenantId = 3;
+  string reason = 4;
+  string ipAddress = 5;
+  string userAgent = 6;
+  string correlationId = 7;
+}
+
+message DeactivateUserResponse {
+  bool success = 1;
+  string userId = 2;
+  string fullName = 3;
+  string email = 4;
+  string languagePreference = 5;
+  bool isActive = 6;
+  string deactivatedAt = 7;
+  string deactivatedBy = 8;
+  string reason = 9;
+  string error = 10;
+  string code = 11;
+}
+
+message ReactivateUserRequest {
+  string userId = 1;
+  string actorId = 2;
+  string tenantId = 3;
+  string ipAddress = 4;
+  string userAgent = 5;
+  string correlationId = 6;
+}
+
+message ReactivateUserResponse {
+  bool success = 1;
+  string userId = 2;
+  string fullName = 3;
+  string email = 4;
+  string languagePreference = 5;
+  bool isActive = 6;
+  string reactivatedAt = 7;
+  string reactivatedBy = 8;
+  string error = 9;
+  string code = 10;
+}
+
+message GetUserNamesRequest {
+  repeated string userIds = 1;
+  string tenantId = 2;
+  string correlationId = 3;
+}
+
+message UserNameItem {
+  string id = 1;
+  string fullName = 2;
+}
+
+message GetUserNamesResponse {
+  bool success = 1;
+  repeated UserNameItem users = 2;
+  string error = 3;
+  string code = 4;
+}

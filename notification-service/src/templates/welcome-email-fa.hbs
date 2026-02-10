@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خوش آمدید به سامانه مدیریت تجهیزات</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', 'Tahoma', Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      line-height: 1.8;
+      direction: rtl;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+    }
+    .header {
+      background-color: #1e40af;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .header h1 {
+      color: #ffffff;
+      font-size: 26px;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .content {
+      padding: 40px 20px;
+      text-align: right;
+    }
+    .greeting {
+      font-size: 17px;
+      margin-bottom: 20px;
+      color: #0f172a;
+    }
+    .message {
+      font-size: 15px;
+      margin-bottom: 20px;
+      color: #0f172a;
+    }
+    .credentials-box {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 30px 0;
+      text-align: right;
+    }
+    .credentials-box h2 {
+      font-size: 17px;
+      margin: 0 0 15px 0;
+      color: #1e40af;
+    }
+    .credential-row {
+      margin: 10px 0;
+      font-size: 15px;
+      text-align: right;
+    }
+    .credential-label {
+      font-weight: bold;
+      color: #64748b;
+      display: inline-block;
+      width: 140px;
+      margin-right: 10px;
+    }
+    .credential-value {
+      color: #0f172a;
+      font-family: 'Courier New', monospace;
+      background-color: #ffffff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .warning-box {
+      background-color: #fef3c7;
+      border-right: 4px solid #f59e0b;
+      border-left: none;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+      text-align: right;
+    }
+    .warning-box p {
+      margin: 0;
+      font-size: 15px;
+      color: #78350f;
+    }
+    .button {
+      display: inline-block;
+      background-color: #1e40af;
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: bold;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .button:hover {
+      background-color: #1e3a8a;
+    }
+    .footer {
+      background-color: #f8fafc;
+      padding: 30px 20px;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+    }
+    .footer p {
+      font-size: 13px;
+      color: #64748b;
+      margin: 10px 0;
+    }
+    .footer a {
+      color: #1e40af;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="header">
+      <h1>خوش آمدید به سامانه مدیریت تجهیزات</h1>
+    </div>
+    
+    <div class="content">
+      <p class="greeting">سلام {{fullName}} عزیز،</p>
+      
+      <p class="message">
+        یک حساب کاربری برای شما در سامانه مدیریت تجهیزات ایجاد شده است.
+        نقش <strong>{{roleName}}</strong> به شما اختصاص داده شده و اکنون می‌توانید به سامانه دسترسی پیدا کنید و تجهیزات و عملیات را مدیریت کنید.
+      </p>
+
+      <div class="credentials-box">
+        <h2>اطلاعات ورود شما</h2>
+        <div class="credential-row">
+          <span class="credential-label">نام کاربری (ایمیل):</span>
+          <span class="credential-value">{{email}}</span>
+        </div>
+        <div class="credential-row">
+          <span class="credential-label">رمز عبور موقت:</span>
+          <span class="credential-value">{{temporaryPassword}}</span>
+        </div>
+        <div class="credential-row">
+          <span class="credential-label">نقش شما:</span>
+          <span class="credential-value">{{roleName}}</span>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <p>
+          <strong>⚠️ اعلان امنیتی مهم:</strong> 
+          این یک رمز عبور موقت است که فقط برای یک بار استفاده می‌شود. در اولین ورود، ملزم به تغییر رمز عبور خود خواهید بود.
+          لطفاً این اطلاعات را محرمانه نگه دارید و با هیچ کس به اشتراک نگذارید.
+        </p>
+      </div>
+
+      <p class="message">
+        برای ورود و شروع کار، روی دکمه زیر کلیک کنید:
+      </p>
+
+      <center>
+        <a href="{{loginUrl}}" class="button">ورود به حساب کاربری</a>
+      </center>
+
+      <p class="message">
+        در صورت داشتن سوال یا نیاز به راهنمایی، لطفاً با مدیر سیستم خود تماس بگیرید.
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>© {{currentYear}} سامانه مدیریت تجهیزات. تمامی حقوق محفوظ است.</p>
+      <p>
+        این ایمیل به آدرس {{email}} ارسال شده است. در صورت اشتباه بودن، لطفاً با پشتیبانی تماس بگیرید.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

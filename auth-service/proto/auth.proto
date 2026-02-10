@@ -1,0 +1,215 @@
+syntax = "proto3";
+
+package auth;
+
+service AuthService {
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+  rpc ResendVerification (ResendVerificationRequest) returns (ResendVerificationResponse);
+  rpc VerifyEmail (VerifyEmailRequest) returns (VerifyEmailResponse);
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc RequestPasswordReset (RequestPasswordResetRequest) returns (RequestPasswordResetResponse);
+  rpc ValidateResetToken (ValidateResetTokenRequest) returns (ValidateResetTokenResponse);
+  rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse);
+  rpc ValidateSession (ValidateSessionRequest) returns (ValidateSessionResponse);
+  rpc UpdateLastLogin (UpdateLastLoginRequest) returns (UpdateLastLoginResponse);
+  rpc Logout (LogoutRequest) returns (LogoutResponse);
+  rpc InvalidateUserSessions (InvalidateUserSessionsRequest) returns (InvalidateUserSessionsResponse);
+  rpc ChangePasswordFirstLogin (ChangePasswordFirstLoginRequest) returns (ChangePasswordFirstLoginResponse);
+}
+
+message RegisterRequest {
+  string fullName = 1;
+  string companyName = 2;
+  string email = 3;
+  string password = 4;
+  optional string phoneNumber = 5;
+  string languagePreference = 6;
+  string ipAddress = 7;
+  string userAgent = 8;
+  string correlationId = 9;
+}
+
+message RegisterResponse {
+  bool success = 1;
+  optional string userId = 2;
+  optional string email = 3;
+  optional string fullName = 4;
+  optional string tenantId = 5;
+  optional string error = 6;
+  optional string code = 7;
+  optional string details = 8;
+}
+
+message ResendVerificationRequest {
+  string email = 1;
+  string ipAddress = 2;
+  string userAgent = 3;
+  string correlationId = 4;
+}
+
+message ResendVerificationResponse {
+  bool success = 1;
+  optional bool alreadyActivated = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+message VerifyEmailRequest {
+  string token = 1;
+  string ipAddress = 2;
+  string userAgent = 3;
+  string correlationId = 4;
+}
+
+message VerifyEmailResponse {
+  bool success = 1;
+  optional string userId = 2;
+  optional string email = 3;
+  optional string languagePreference = 4;
+  optional bool alreadyActivated = 5;
+  optional string error = 6;
+  optional string code = 7;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+  bool rememberMe = 3;
+  string ipAddress = 4;
+  string userAgent = 5;
+  string correlationId = 6;
+}
+
+message LoginResponse {
+  bool success = 1;
+  optional string userId = 2;
+  optional string email = 3;
+  optional string fullName = 4;
+  optional string tenantId = 5;
+  optional string languagePreference = 6;
+  optional string sessionToken = 7;
+  optional int64 sessionExpiry = 8;
+  optional bool requirePasswordChange = 9;
+  optional string error = 10;
+  optional string code = 11;
+  optional int32 attemptsRemaining = 12;
+  optional int32 retryAfter = 13;
+}
+
+message RequestPasswordResetRequest {
+  string email = 1;
+  string ipAddress = 2;
+  string userAgent = 3;
+  string correlationId = 4;
+}
+
+message RequestPasswordResetResponse {
+  bool success = 1;
+  optional string error = 2;
+  optional string code = 3;
+}
+
+message ValidateResetTokenRequest {
+  string token = 1;
+  string correlationId = 2;
+}
+
+message ValidateResetTokenResponse {
+  bool success = 1;
+  optional bool valid = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+message ResetPasswordRequest {
+  string token = 1;
+  string newPassword = 2;
+  string correlationId = 3;
+}
+
+message ResetPasswordResponse {
+  bool success = 1;
+  optional string error = 2;
+  optional string code = 3;
+}
+
+message ValidateSessionRequest {
+  string token = 1;
+  string correlationId = 2;
+}
+
+message ValidateSessionResponse {
+  bool success = 1;
+  optional string userId = 2;
+  optional string tenantId = 3;
+  optional string sessionId = 4;
+  optional string createdAt = 5;
+  optional string error = 6;
+  optional string code = 7;
+}
+
+message UpdateLastLoginRequest {
+  string sessionId = 1;
+  string correlationId = 2;
+}
+
+message UpdateLastLoginResponse {
+  bool success = 1;
+  optional string error = 2;
+  optional string code = 3;
+}
+
+message LogoutRequest {
+  string sessionToken = 1;
+  string ipAddress = 2;
+  string userAgent = 3;
+  string correlationId = 4;
+}
+
+message LogoutResponse {
+  bool success = 1;
+  optional string userId = 2;
+  optional string email = 3;
+  optional string sessionId = 4;
+  optional string error = 5;
+  optional string code = 6;
+}
+
+message InvalidateUserSessionsRequest {
+  string userId = 1;
+  string reason = 2;
+  string invalidatedBy = 3;
+  string correlationId = 4;
+}
+
+message InvalidateUserSessionsResponse {
+  bool success = 1;
+  optional string userId = 2;
+  optional int32 sessionsInvalidated = 3;
+  optional bool cacheCleared = 4;
+  optional string error = 5;
+  optional string code = 6;
+}
+
+message ChangePasswordFirstLoginRequest {
+  string tempSessionToken = 1;
+  string newPassword = 2;
+  string confirmPassword = 3;
+  string ipAddress = 4;
+  string userAgent = 5;
+  string correlationId = 6;
+}
+
+message ChangePasswordFirstLoginResponse {
+  bool success = 1;
+  optional string userId = 2;
+  optional string email = 3;
+  optional string fullName = 4;
+  optional string tenantId = 5;
+  optional string languagePreference = 6;
+  optional string sessionToken = 7;
+  optional int64 sessionExpiry = 8;
+  optional string error = 9;
+  optional string code = 10;
+  optional string details = 11;
+}

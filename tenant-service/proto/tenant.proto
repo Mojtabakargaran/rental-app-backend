@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package tenant;
+
+service TenantService {
+  rpc CreateTenant (CreateTenantRequest) returns (CreateTenantResponse);
+  rpc GetCompanyInfo (GetCompanyInfoRequest) returns (GetCompanyInfoResponse);
+}
+
+message CreateTenantRequest {
+  string companyName = 1;
+  string correlationId = 2;
+}
+
+message CreateTenantResponse {
+  bool success = 1;
+  string tenantId = 2;
+  string companyName = 3;
+  string error = 4;
+  string code = 5;
+}
+
+message GetCompanyInfoRequest {
+  string tenantId = 1;
+  string correlationId = 2;
+}
+
+message CompanyInfo {
+  string id = 1;
+  string companyName = 2;
+  string ownerFullName = 3;
+  string ownerEmail = 4;
+  string ownerPhoneNumber = 5;
+  string registrationDate = 6;
+}
+
+message GetCompanyInfoResponse {
+  bool success = 1;
+  CompanyInfo company = 2;
+  string error = 3;
+  string code = 4;
+}

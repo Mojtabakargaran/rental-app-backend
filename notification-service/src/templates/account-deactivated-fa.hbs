@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>غیرفعال‌سازی حساب کاربری</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Vazirmatn', Tahoma, Arial, sans-serif; background-color: #f8fafc;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc; padding: 20px 0;">
+    <tr>
+      <td align="center">
+        <!-- Main Container -->
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          
+          <!-- Header -->
+          <tr>
+            <td style="background-color: #1e40af; padding: 30px 20px; text-align: right;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 26px; font-weight: bold;">سامانه مدیریت تجهیزات</h1>
+            </td>
+          </tr>
+          
+          <!-- Content -->
+          <tr>
+            <td style="padding: 40px 30px;">
+              <h2 style="margin: 0 0 20px 0; color: #0f172a; font-size: 21px; font-weight: 600; text-align: right;">حساب کاربری شما غیرفعال شده است</h2>
+              
+              <p style="margin: 0 0 16px 0; color: #0f172a; font-size: 15px; line-height: 1.8; text-align: right;">
+                سلام {{fullName}},
+              </p>
+              
+              <p style="margin: 0 0 16px 0; color: #0f172a; font-size: 15px; line-height: 1.8; text-align: right;">
+                حساب کاربری شما توسط مدیر سازمان غیرفعال شده است. شما دیگر نمی‌توانید به سامانه دسترسی داشته باشید.
+              </p>
+              
+              <!-- Info Card -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc; border-radius: 6px; margin: 24px 0; border-right: 4px solid #f59e0b;">
+                <tr>
+                  <td style="padding: 20px; text-align: right;">
+                    <p style="margin: 0 0 8px 0; color: #0f172a; font-size: 15px; font-weight: 600;">جزئیات غیرفعال‌سازی:</p>
+                    <p style="margin: 0 0 8px 0; color: #64748b; font-size: 15px;">
+                      <strong>تاریخ:</strong> {{deactivatedAt}}
+                    </p>
+                    <p style="margin: 0; color: #64748b; font-size: 15px;">
+                      <strong>دلیل:</strong> {{reason}}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              
+              <p style="margin: 0 0 16px 0; color: #0f172a; font-size: 15px; line-height: 1.8; text-align: right;">
+                در صورتی که فکر می‌کنید این اقدام به اشتباه انجام شده است، لطفاً با مدیر سازمان خود تماس بگیرید.
+              </p>
+              
+              <p style="margin: 24px 0 0 0; color: #0f172a; font-size: 15px; line-height: 1.8; text-align: right;">
+                با احترام،<br>
+                <strong>تیم سامانه مدیریت تجهیزات</strong>
+              </p>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f8fafc; padding: 20px 30px; text-align: center; border-top: 1px solid #e2e8f0;">
+              <p style="margin: 0; color: #64748b; font-size: 13px; line-height: 1.5;">
+                © {{currentYear}} سامانه مدیریت تجهیزات. تمامی حقوق محفوظ است.
+              </p>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

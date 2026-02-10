@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package tenant;
+
+service TenantService {
+  rpc GetCompanyInfo (GetCompanyInfoRequest) returns (GetCompanyInfoResponse);
+}
+
+message GetCompanyInfoRequest {
+  string tenantId = 1;
+  string correlationId = 2;
+}
+
+message Company {
+  string id = 1;
+  string companyName = 2;
+  string ownerFullName = 3;
+  string ownerEmail = 4;
+  optional string ownerPhoneNumber = 5;
+  string registrationDate = 6;
+}
+
+message GetCompanyInfoResponse {
+  bool success = 1;
+  optional Company company = 2;
+  optional string error = 3;
+  optional string code = 4;
+}

@@ -1,0 +1,493 @@
+syntax = "proto3";
+
+package equipment;
+
+// List Categories
+message ListCategoriesRequest {
+  string tenantId = 1;
+  bool activeOnly = 2;
+  string correlationId = 3;
+}
+
+message CategoryItem {
+  string id = 1;
+  string name = 2;
+  optional string description = 3;
+  optional string parentId = 4;
+  int32 level = 5;
+  bool isActive = 6;
+}
+
+message ListCategoriesResponse {
+  bool success = 1;
+  repeated CategoryItem categories = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Create Category
+message CreateCategoryRequest {
+  string name = 1;
+  optional string description = 2;
+  optional string parentId = 3;
+  bool isActive = 4;
+  string tenantId = 5;
+  string createdBy = 6;
+  string ipAddress = 7;
+  string userAgent = 8;
+  string correlationId = 9;
+}
+
+message CreateCategoryResponse {
+  bool success = 1;
+  optional CategoryItem category = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// View Categories
+message ViewCategoriesRequest {
+  string tenantId = 1;
+  int32 page = 2;
+  int32 pageSize = 3;
+  optional string search = 4;
+  optional string status = 5;
+  optional string hierarchyLevel = 6;
+  string correlationId = 7;
+}
+
+message CategoryItemWithDetails {
+  string id = 1;
+  string name = 2;
+  optional string description = 3;
+  optional string parentId = 4;
+  optional string parentName = 5;
+  int32 level = 6;
+  bool isActive = 7;
+  string createdAt = 8;
+  int32 childrenCount = 9;
+}
+
+message PaginationInfo {
+  int32 currentPage = 1;
+  int32 pageSize = 2;
+  int32 totalItems = 3;
+  int32 totalPages = 4;
+  bool hasNextPage = 5;
+  bool hasPreviousPage = 6;
+}
+
+message ViewCategoriesResponse {
+  bool success = 1;
+  repeated CategoryItemWithDetails categories = 2;
+  optional PaginationInfo pagination = 3;
+  optional string error = 4;
+  optional string code = 5;
+}
+
+// Update Category
+message UpdateCategoryRequest {
+  string categoryId = 1;
+  string tenantId = 2;
+  string userId = 3;
+  string name = 4;
+  optional string description = 5;
+  optional string parentId = 6;
+  bool isActive = 7;
+  string correlationId = 8;
+  repeated string clearedFields = 9;
+}
+
+message UpdatedCategoryItem {
+  string id = 1;
+  string name = 2;
+  optional string description = 3;
+  optional string parentId = 4;
+  optional string parentName = 5;
+  int32 level = 6;
+  bool isActive = 7;
+  string updatedAt = 8;
+}
+
+message UpdateCategoryResponse {
+  bool success = 1;
+  optional UpdatedCategoryItem category = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Deactivate Category
+message DeactivateCategoryRequest {
+  string categoryId = 1;
+  string tenantId = 2;
+  string userId = 3;
+  optional string reason = 4;
+  string correlationId = 5;
+}
+
+message DeactivatedCategoryItem {
+  string id = 1;
+  string name = 2;
+  bool isActive = 3;
+  string deactivatedAt = 4;
+}
+
+message DeactivateCategoryResponse {
+  bool success = 1;
+  optional DeactivatedCategoryItem category = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Reactivate Category
+message ReactivateCategoryRequest {
+  string categoryId = 1;
+  string tenantId = 2;
+  string userId = 3;
+  string correlationId = 4;
+}
+
+message ReactivatedCategoryItem {
+  string id = 1;
+  string name = 2;
+  bool isActive = 3;
+  string reactivatedAt = 4;
+}
+
+message ReactivateCategoryResponse {
+  bool success = 1;
+  optional ReactivatedCategoryItem category = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Delete Category
+message DeleteCategoryRequest {
+  string categoryId = 1;
+  string tenantId = 2;
+  string userId = 3;
+  string correlationId = 4;
+}
+
+message DeletedCategoryItem {
+  string id = 1;
+  string name = 2;
+  string deletedAt = 3;
+}
+
+message DeleteCategoryResponse {
+  bool success = 1;
+  optional DeletedCategoryItem category = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Custom Attribute
+message CustomAttribute {
+  string key = 1;
+  string value = 2;
+  optional string unit = 3;
+}
+
+// Create Equipment
+message CreateEquipmentRequest {
+  string tenantId = 1;
+  string userId = 2;
+  string name = 3;
+  string categoryId = 4;
+  optional string description = 5;
+  optional string manufacturer = 6;
+  optional string model = 7;
+  optional string serialNumber = 8;
+  optional int32 yearOfManufacture = 9;
+  optional double purchasePrice = 10;
+  optional string purchaseDate = 11;
+  string status = 12;
+  repeated CustomAttribute customAttributes = 13;
+  string correlationId = 14;
+}
+
+message EquipmentItem {
+  string id = 1;
+  string tenantId = 2;
+  string name = 3;
+  string categoryId = 4;
+  string categoryName = 5;
+  optional string description = 6;
+  optional string manufacturer = 7;
+  optional string model = 8;
+  optional string serialNumber = 9;
+  optional int32 yearOfManufacture = 10;
+  optional double purchasePrice = 11;
+  optional string purchaseDate = 12;
+  string status = 13;
+  repeated CustomAttribute customAttributes = 14;
+  string createdBy = 15;
+  string createdAt = 16;
+  string updatedAt = 17;
+}
+
+message CreateEquipmentResponse {
+  bool success = 1;
+  optional EquipmentItem equipment = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// List Equipment
+message EquipmentFilters {
+  repeated string status = 1;
+  repeated string categoryId = 2;
+  optional string manufacturer = 3;
+  optional string searchQuery = 4;
+  optional string purchaseDateFrom = 5;
+  optional string purchaseDateTo = 6;
+  optional string createdDateFrom = 7;
+  optional string createdDateTo = 8;
+}
+
+message ListEquipmentRequest {
+  string tenantId = 1;
+  string userId = 2;
+  int32 page = 3;
+  int32 limit = 4;
+  string sortBy = 5;
+  string sortOrder = 6;
+  optional EquipmentFilters filters = 7;
+}
+
+message ListEquipmentItem {
+  string id = 1;
+  string name = 2;
+  string categoryId = 3;
+  string categoryPath = 4;
+  optional string serialNumber = 5;
+  string status = 6;
+  optional string manufacturer = 7;
+  optional string model = 8;
+  optional int32 yearOfManufacture = 9;
+  optional double purchasePrice = 10;
+  optional string purchaseDate = 11;
+  optional string description = 12;
+  repeated CustomAttribute customAttributes = 13;
+  string createdAt = 14;
+  string updatedAt = 15;
+}
+
+message ListEquipmentData {
+  repeated ListEquipmentItem items = 1;
+  int32 total = 2;
+  int32 page = 3;
+  int32 limit = 4;
+  int32 totalPages = 5;
+  bool hasNextPage = 6;
+  bool hasPreviousPage = 7;
+}
+
+message ListEquipmentResponse {
+  bool success = 1;
+  optional ListEquipmentData data = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Get Equipment Details
+message GetEquipmentDetailsRequest {
+  string equipmentId = 1;
+  string tenantId = 2;
+  string userId = 3;
+  string correlationId = 4;
+}
+
+message EquipmentDetailsItem {
+  string id = 1;
+  string tenantId = 2;
+  string name = 3;
+  string categoryId = 4;
+  string categoryName = 5;
+  string categoryPath = 6;
+  optional string description = 7;
+  optional string manufacturer = 8;
+  optional string model = 9;
+  optional string serialNumber = 10;
+  optional int32 yearOfManufacture = 11;
+  optional double purchasePrice = 12;
+  optional string purchaseDate = 13;
+  string status = 14;
+  repeated CustomAttribute customAttributes = 15;
+  string createdBy = 16;
+  string updatedBy = 17;
+  string createdAt = 18;
+  string updatedAt = 19;
+  optional string deletedAt = 20;
+}
+
+message GetEquipmentDetailsResponse {
+  bool success = 1;
+  optional EquipmentDetailsItem equipment = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Update Equipment
+message UpdateEquipmentRequest {
+  string equipmentId = 1;
+  string tenantId = 2;
+  string userId = 3;
+  string correlationId = 4;
+  string name = 5;
+  string categoryId = 6;
+  optional string description = 7;
+  optional string manufacturer = 8;
+  optional string model = 9;
+  optional string serialNumber = 10;
+  optional int32 yearOfManufacture = 11;
+  optional double purchasePrice = 12;
+  optional string purchaseDate = 13;
+  string status = 14;
+  repeated CustomAttribute customAttributes = 15;
+  repeated string clearedFields = 16;
+}
+
+message UpdateEquipmentResponse {
+  bool success = 1;
+  optional EquipmentDetailsItem equipment = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Update Equipment Status
+message UpdateEquipmentStatusRequest {
+  string equipmentId = 1;
+  string tenantId = 2;
+  string userId = 3;
+  string correlationId = 4;
+  string status = 5;
+  optional string reason = 6;
+}
+
+message EquipmentStatusItem {
+  string id = 1;
+  string name = 2;
+  string status = 3;
+  string updatedBy = 4;
+  string updatedAt = 5;
+}
+
+message UpdateEquipmentStatusResponse {
+  bool success = 1;
+  message StatusUpdateData {
+    EquipmentStatusItem equipment = 1;
+    bool statusChanged = 2;
+    optional string oldStatus = 3;
+  }
+  optional StatusUpdateData data = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Archive Equipment
+message ArchiveEquipmentRequest {
+  string equipmentId = 1;
+  string tenantId = 2;
+  string userId = 3;
+  string correlationId = 4;
+  optional string reason = 5;
+}
+
+message ArchivedEquipmentItem {
+  string id = 1;
+  string name = 2;
+  string categoryId = 3;
+  string categoryPath = 4;
+  string status = 5;
+  string deletedAt = 6;
+  string deletedBy = 7;
+}
+
+message EquipmentFullData {
+  optional string description = 1;
+  optional string manufacturer = 2;
+  optional string model = 3;
+  optional string serialNumber = 4;
+  optional int32 yearOfManufacture = 5;
+  optional double purchasePrice = 6;
+  optional string purchaseDate = 7;
+  repeated CustomAttribute customAttributes = 8;
+  string createdBy = 9;
+  string createdAt = 10;
+  optional string updatedBy = 11;
+  string updatedAt = 12;
+}
+
+message ArchiveEquipmentResponse {
+  bool success = 1;
+  message ArchiveData {
+    ArchivedEquipmentItem equipment = 1;
+    EquipmentFullData fullData = 2;
+  }
+  optional ArchiveData data = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+// Delete Equipment Permanently
+message DeleteEquipmentPermanentlyRequest {
+  string equipmentId = 1;
+  string tenantId = 2;
+  string userId = 3;
+  string correlationId = 4;
+}
+
+message DeletedEquipmentItem {
+  string id = 1;
+  string name = 2;
+  string categoryPath = 3;
+  string status = 4;
+}
+
+message EquipmentCompleteData {
+  string categoryId = 1;
+  optional string description = 2;
+  optional string manufacturer = 3;
+  optional string model = 4;
+  optional string serialNumber = 5;
+  optional int32 yearOfManufacture = 6;
+  optional double purchasePrice = 7;
+  optional string purchaseDate = 8;
+  repeated CustomAttribute customAttributes = 9;
+  string createdBy = 10;
+  string createdAt = 11;
+  optional string updatedBy = 12;
+  string updatedAt = 13;
+  optional string deletedAt = 14;
+  optional string deletedBy = 15;
+}
+
+message DeleteEquipmentPermanentlyResponse {
+  bool success = 1;
+  message DeleteData {
+    DeletedEquipmentItem deletedEquipment = 1;
+    EquipmentCompleteData fullData = 2;
+  }
+  optional DeleteData data = 2;
+  optional string error = 3;
+  optional string code = 4;
+}
+
+service EquipmentService {
+  rpc ListCategories (ListCategoriesRequest) returns (ListCategoriesResponse);
+  rpc CreateCategory (CreateCategoryRequest) returns (CreateCategoryResponse);
+  rpc ViewCategories (ViewCategoriesRequest) returns (ViewCategoriesResponse);
+  rpc UpdateCategory (UpdateCategoryRequest) returns (UpdateCategoryResponse);
+  rpc DeactivateCategory (DeactivateCategoryRequest) returns (DeactivateCategoryResponse);
+  rpc ReactivateCategory (ReactivateCategoryRequest) returns (ReactivateCategoryResponse);
+  rpc DeleteCategory (DeleteCategoryRequest) returns (DeleteCategoryResponse);
+  rpc CreateEquipment (CreateEquipmentRequest) returns (CreateEquipmentResponse);
+  rpc ListEquipment (ListEquipmentRequest) returns (ListEquipmentResponse);
+  rpc GetEquipmentDetails (GetEquipmentDetailsRequest) returns (GetEquipmentDetailsResponse);
+  rpc UpdateEquipment (UpdateEquipmentRequest) returns (UpdateEquipmentResponse);
+  rpc UpdateEquipmentStatus (UpdateEquipmentStatusRequest) returns (UpdateEquipmentStatusResponse);
+  rpc ArchiveEquipment (ArchiveEquipmentRequest) returns (ArchiveEquipmentResponse);
+  rpc DeleteEquipmentPermanently (DeleteEquipmentPermanentlyRequest) returns (DeleteEquipmentPermanentlyResponse);
+}

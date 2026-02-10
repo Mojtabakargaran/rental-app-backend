@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأیید آدرس ایمیل جدید</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', 'Tahoma', Arial, 'Iranian Sans', 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            line-height: 1.8;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .header {
+            background-color: #1e40af;
+            padding: 30px 20px;
+            text-align: right;
+        }
+        .header-title {
+            color: #ffffff;
+            font-size: 21px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .content {
+            padding: 40px 20px;
+            text-align: right;
+        }
+        .greeting {
+            font-size: 26px;
+            color: #0f172a;
+            margin: 0 0 20px 0;
+            font-weight: bold;
+        }
+        .paragraph {
+            font-size: 15px;
+            color: #0f172a;
+            margin: 16px 0;
+        }
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .verify-button {
+            display: inline-block;
+            background-color: #1e40af;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            min-height: 44px;
+            line-height: 1.4;
+        }
+        .verify-button:hover {
+            background-color: #1e3a8a;
+        }
+        .info-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: right;
+        }
+        .info-title {
+            font-size: 17px;
+            color: #1e40af;
+            font-weight: bold;
+            margin: 0 0 12px 0;
+        }
+        .warning-card {
+            background-color: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: right;
+        }
+        .warning-title {
+            font-size: 17px;
+            color: #92400e;
+            font-weight: bold;
+            margin: 0 0 12px 0;
+        }
+        .email-detail {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            color: #1e40af;
+            font-weight: bold;
+            direction: ltr;
+        }
+        .footer {
+            background-color: #f8fafc;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .footer-text {
+            font-size: 13px;
+            color: #64748b;
+            margin: 8px 0;
+        }
+        .footer-link {
+            color: #1e40af;
+            text-decoration: none;
+        }
+        .divider {
+            height: 1px;
+            background-color: #e2e8f0;
+            margin: 30px 0;
+        }
+        @media only screen and (max-width: 480px) {
+            .content {
+                padding: 30px 15px;
+            }
+            .greeting {
+                font-size: 22px;
+            }
+            .verify-button {
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <table role="presentation" class="email-container" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="header">
+                <h1 class="header-title">سامانه مدیریت تجهیزات</h1>
+            </td>
+        </tr>
+        <tr>
+            <td class="content">
+                <h2 class="greeting">سلام {{fullName}} عزیز! 👋</h2>
+                
+                <p class="paragraph">
+                    آدرس ایمیل شما توسط مدیر شرکت تغییر یافته است.
+                </p>
+                
+                <div class="info-card">
+                    <h3 class="info-title">جزئیات تغییر ایمیل</h3>
+                    <p class="paragraph" style="margin: 8px 0;">
+                        <strong>ایمیل قبلی:</strong> <span class="email-detail">{{oldEmail}}</span>
+                    </p>
+                    <p class="paragraph" style="margin: 8px 0;">
+                        <strong>ایمیل جدید:</strong> <span class="email-detail">{{newEmail}}</span>
+                    </p>
+                </div>
+                
+                <p class="paragraph">
+                    برای ادامه استفاده از حساب کاربری خود با این آدرس ایمیل جدید، لطفاً با کلیک بر روی دکمه زیر آن را تأیید کنید:
+                </p>
+                
+                <div class="button-container">
+                    <a href="{{verificationUrl}}" class="verify-button">تأیید آدرس ایمیل جدید</a>
+                </div>
+                
+                <div class="warning-card">
+                    <h3 class="warning-title">⚠️ اطلاعات مهم</h3>
+                    <p class="paragraph" style="margin: 8px 0; color: #92400e;">
+                        <strong>حساب کاربری شما در طول فرآیند تأیید فعال باقی می‌ماند.</strong> شما می‌توانید به طور عادی از سامانه استفاده کنید.
+                    </p>
+                    <p class="paragraph" style="margin: 8px 0; color: #92400e;">
+                        اگر شما درخواست تغییر ایمیل نداده‌اید یا فکر می‌کنید این تغییر اشتباه بوده است، لطفاً فوراً با مدیر شرکت یا تیم پشتیبانی ما تماس بگیرید.
+                    </p>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <p class="paragraph" style="font-size: 13px; color: #64748b;">
+                    <strong>توجه:</strong> این لینک تأیید پس از ۲۴ساعت منقضی می‌شود. 
+                    اگر به لینک تأیید جدیدی نیاز دارید، لطفاً با مدیر شرکت خود تماس بگیرید.
+                </p>
+                
+                <p class="paragraph" style="font-size: 13px; color: #64748b;">
+                    اگر دکمه کار نمی‌کند، این لینک را کپی کرده و در مرورگر خود بازکنید:<br>
+                    <span style="word-break: break-all; color: #1e40af; direction: ltr; display: inline-block;">{{verificationUrl}}</span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="footer">
+                <p class="footer-text">
+                    © {{currentYear}} سامانه مدیریت تجهیزات. تمامی حقوق محفوظ است.
+                </p>
+                <p class="footer-text">
+                    سؤالی دارید؟ با ما تماس بگیرید: 
+                    <a href="mailto:samaninsystems@gmail.com" class="footer-link">samaninsystems@gmail.com</a>
+                </p>
+                <p class="footer-text">
+                    <a href="#" class="footer-link">سیاست حفظ حریم خصوصی</a> | 
+                    <a href="#" class="footer-link">شرایط استفاده</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

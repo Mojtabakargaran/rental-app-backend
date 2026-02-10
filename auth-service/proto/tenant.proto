@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package tenant;
+
+service TenantService {
+  rpc CreateTenant (CreateTenantRequest) returns (CreateTenantResponse);
+}
+
+message CreateTenantRequest {
+  string companyName = 1;
+  string correlationId = 2;
+}
+
+message CreateTenantResponse {
+  bool success = 1;
+  string tenantId = 2;
+  string companyName = 3;
+  string error = 4;
+  string code = 5;
+}
