@@ -4,9 +4,46 @@ import { ValidationPipe, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
 import { join } from 'path';
+import { DataSource } from 'typeorm';
+
+async function runMigrations() {
+  const logger = new Logger('Migrations');
+  
+  try {
+    // Import the DataSource configuration
+    const { default: AppDataSource } = await import('./config/typeorm.config');
+    
+    // Initialize the DataSource
+    await AppDataSource.initialize();
+    logger.log('Database connection established');
+    
+    // Run pending migrations
+    const migrations = await AppDataSource.runMigrations();
+    
+    if (migrations.length === 0) {
+      logger.log('No pending migrations');
+    } else {
+      logger.log(`Successfully ran ${migrations.length} migration(s):`);
+      migrations.forEach(migration => {
+        logger.log(`  - ${migration.name}`);
+      });
+    }
+    
+    // Close the connection
+    await AppDataSource.destroy();
+    logger.log('Migration process completed');
+  } catch (error) {
+    logger.error('Migration failed:', error.message);
+    logger.error(error.stack);
+    throw error;
+  }
+}
 
 async function bootstrap() {
-  const logger = new Logger('Bootstrap'); 
+  const logger = new Logger('Bootstrap');
+  
+  // Run migrations before starting the application
+  await runMigrations(); 
 
   // Create HTTP application for health checks
   const app = await NestFactory.create(AppModule);
